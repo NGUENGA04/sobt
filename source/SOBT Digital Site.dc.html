@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#FAF8F3;font-family:Sora,Helvetica,sans-serif;color:#1A1814;-webkit-font-smoothing:antialiased}a{color:#1A1814;text-decoration:none}a:hover{color:#8a6a00}*{box-sizing:border-box}input,select,textarea,button{font-family:inherit}</style>
+<template id="__bundler_thumbnail" data-bg-color="#1A1814"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="12" fill="#F5C214"></circle><path d="M65 50H71M60.6 60.6L64.8 64.8M50 65V71M39.4 60.6L35.2 64.8M35 50H29M39.4 39.4L35.2 35.2M50 35V29M60.6 39.4L64.8 35.2" stroke="#F5C214" stroke-width="3.5" stroke-linecap="round"></path></svg></template>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<header style="position:sticky;top:0;z-index:20;background:rgba(250,248,243,.94);backdrop-filter:blur(8px);border-bottom:1px solid #E4DFD3">
+<div style="max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+<a href="#" onClick="{{ goHome }}" style="display:flex;flex-direction:column;align-items:center;gap:3px">
+<span style="display:flex;align-items:center;font-family:Unbounded,sans-serif;font-weight:800;font-size:24px;line-height:1;letter-spacing:-.02em;color:#1A1814">S<svg width="28" height="28" viewBox="0 0 100 100"><circle cx="50" cy="50" r="26" fill="#F5C214"></circle><path d="M82 50H93M72.6 72.6L80.4 80.4M50 82V93M27.4 72.6L19.6 80.4M18 50H7M27.4 27.4L19.6 19.6M50 18V7M72.6 27.4L80.4 19.6" stroke="#F5C214" stroke-width="8" stroke-linecap="round"></path></svg>BT</span>
+<span style="font-size:8px;letter-spacing:.6em;font-weight:700;margin-right:-.6em;color:#1A1814">DIGITAL</span>
+</a>
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<nav style="display:flex;gap:28px;align-items:center">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+<a href="#" onClick="{{ n.go }}" style="font-size:14px;font-weight:600;padding:6px 0;border-bottom:2px solid {{ n.border }};color:#1A1814">{{ n.label }}</a>
+</sc-for>
+</nav>
+</sc-if>
+<div style="display:flex;align-items:center;gap:12px">
+<div style="display:flex;border:1px solid #1A1814;border-radius:999px;overflow:hidden;font-size:12px;font-weight:700">
+<button onClick="{{ setFr }}" style="border:0;padding:6px 10px;cursor:pointer;background:{{ frBg }};color:{{ frFg }}">FR</button>
+<button onClick="{{ setEn }}" style="border:0;padding:6px 10px;cursor:pointer;background:{{ enBg }};color:{{ enFg }}">EN</button>
+</div>
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<a href="https://wa.me/237676324031" target="_blank" style="background:#1A1814;color:#FAF8F3;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;display:flex;gap:8px;align-items:center;white-space:nowrap" style-hover="background:#F5C214;color:#1A1814"><span style="width:8px;height:8px;border-radius:50%;background:#25D366"></span>WhatsApp</a>
+</sc-if>
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ toggleMenu }}" aria-label="Menu" style="width:44px;height:44px;border:1px solid #1A1814;border-radius:50%;background:transparent;display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;cursor:pointer"><span style="width:18px;height:2px;background:#1A1814"></span><span style="width:18px;height:2px;background:#1A1814"></span></button>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{ menuVisible }}" hint-placeholder-val="{{ false }}">
+<div style="padding:8px 24px 24px;display:flex;flex-direction:column;border-top:1px solid #E4DFD3">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+<a href="#" onClick="{{ n.go }}" style="font-family:Unbounded,sans-serif;font-weight:700;font-size:22px;padding:14px 0;border-bottom:1px solid #E4DFD3;color:{{ n.mColor }}">{{ n.label }}</a>
+</sc-for>
+<div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+<a href="tel:+237676324031" style="flex:1;text-align:center;background:#F5C214;color:#1A1814;padding:14px;border-radius:999px;font-weight:700">{{ t.call }}</a>
+<a href="https://wa.me/237676324031" target="_blank" style="flex:1;text-align:center;background:#1A1814;color:#FAF8F3;padding:14px;border-radius:999px;font-weight:700">WhatsApp</a>
+</div>
+</div>
+</sc-if>
+</header>
+
+<main style="flex:1">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+
+<sc-if value="{{ dirA }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="Accueil — Hero A" style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,110px) 24px clamp(56px,8vw,100px);display:flex;flex-wrap:wrap;align-items:center;gap:48px">
+<div style="flex:1 1 520px;display:flex;flex-direction:column;gap:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.06em;color:#6b665c">{{ t.heroEyebrow }}</div>
+<h1 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(38px,5.6vw,76px);line-height:1.04;letter-spacing:-.03em;text-wrap:balance">{{ t.heroTitle }}</h1>
+<p style="margin:0;font-size:clamp(16px,1.5vw,19px);line-height:1.6;color:#4a463e;max-width:580px;text-wrap:pretty">{{ t.heroSub }}</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a href="tel:+237676324031" style="background:#F5C214;color:#1A1814;padding:16px 24px;border-radius:999px;font-weight:700;font-size:15px" style-hover="background:#1A1814;color:#F5C214">{{ t.callFull }}</a>
+<a href="https://wa.me/237676324031" target="_blank" style="border:1.5px solid #1A1814;color:#1A1814;padding:16px 24px;border-radius:999px;font-weight:700;font-size:15px;display:flex;gap:8px;align-items:center;white-space:nowrap" style-hover="background:#1A1814;color:#FAF8F3"><span style="width:8px;height:8px;border-radius:50%;background:#25D366"></span>{{ t.waFull }}</a>
+</div>
+</div>
+<div style="flex:1 1 320px;display:flex;justify-content:center">
+<svg viewBox="0 0 100 100" style="width:100%;max-width:440px;height:auto"><circle cx="50" cy="50" r="26" fill="#F5C214"></circle><path d="M82 50H93M72.6 72.6L80.4 80.4M50 82V93M27.4 72.6L19.6 80.4M18 50H7M27.4 27.4L19.6 19.6M50 18V7M72.6 27.4L80.4 19.6" stroke="#F5C214" stroke-width="7" stroke-linecap="round"></path></svg>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ dirB }}" hint-placeholder-val="{{ false }}">
+<section data-screen-label="Accueil — Hero B" style="background:#1A1814;color:#FAF8F3;overflow:hidden">
+<div style="max-width:1000px;margin:0 auto;padding:clamp(56px,9vw,120px) 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.06em;color:#F5C214">{{ t.heroEyebrow }}</div>
+<h1 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(36px,5.8vw,80px);line-height:1.04;letter-spacing:-.03em;text-wrap:balance">{{ t.heroTitle }}</h1>
+<p style="margin:0;font-size:clamp(16px,1.5vw,19px);line-height:1.6;color:#CFC9BC;max-width:640px;text-wrap:pretty">{{ t.heroSub }}</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+<a href="tel:+237676324031" style="background:#F5C214;color:#1A1814;padding:16px 24px;border-radius:999px;font-weight:700;font-size:15px" style-hover="background:#FAF8F3">{{ t.callFull }}</a>
+<a href="https://wa.me/237676324031" target="_blank" style="border:1.5px solid #FAF8F3;color:#FAF8F3;padding:16px 24px;border-radius:999px;font-weight:700;font-size:15px;display:flex;gap:8px;align-items:center;white-space:nowrap" style-hover="background:#FAF8F3;color:#1A1814"><span style="width:8px;height:8px;border-radius:50%;background:#25D366"></span>{{ t.waFull }}</a>
+</div>
+<svg viewBox="0 0 200 80" style="width:100%;max-width:720px;height:auto;display:block;margin-top:24px"><path d="M56 80 A44 44 0 0 1 144 80 Z" fill="#F5C214"></path><path d="M100 26V10M141 41L152 30M59 41L48 30M163 66L178 61M37 66L22 61" stroke="#F5C214" stroke-width="5" stroke-linecap="round"></path></svg>
+</div>
+<div style="height:6px;background:#F5C214"></div>
+</section>
+</sc-if>
+
+<section data-screen-label="Accueil — Expertises" style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.02em;max-width:640px;text-wrap:balance">{{ t.expTitle }}</h2>
+<a href="#" onClick="{{ goServices }}" style="font-weight:700;font-size:15px;border-bottom:2px solid #F5C214;padding-bottom:4px">{{ t.allServices }}</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+<sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
+<a href="#" onClick="{{ goServices }}" style="background:#fff;border:1px solid #E4DFD3;border-radius:6px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;min-height:240px;color:#1A1814" style-hover="border-color:#1A1814;transform:translateY(-3px)">
+<span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8a6a00">{{ s.num }}</span>
+<span style="font-family:Unbounded,sans-serif;font-weight:700;font-size:19px;line-height:1.2">{{ s.title }}</span>
+<span style="font-size:14px;line-height:1.55;color:#4a463e;flex:1">{{ s.short }}</span>
+<span style="width:28px;height:28px;border-radius:50%;background:#F5C214;display:flex;align-items:center;justify-content:center;font-weight:700">→</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section data-screen-label="Accueil — Pourquoi" style="background:#1A1814;color:#FAF8F3">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-direction:column;gap:48px">
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.02em">{{ t.whyTitle }}</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px">
+<sc-for list="{{ t.why }}" as="w" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #3a362e;padding-top:24px">
+<span style="width:14px;height:14px;border-radius:50%;background:#F5C214"></span>
+<span style="font-family:Unbounded,sans-serif;font-weight:700;font-size:20px">{{ w.title }}</span>
+<span style="font-size:15px;line-height:1.6;color:#CFC9BC">{{ w.text }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Accueil — Méthode" style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.02em">{{ t.methodTitle }}</h2>
+<a href="#" onClick="{{ goMethod }}" style="font-weight:700;font-size:15px;border-bottom:2px solid #F5C214;padding-bottom:4px">{{ t.seeMethod }}</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px">
+<sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:12px">
+<span style="width:44px;height:44px;border-radius:50%;background:#F5C214;display:flex;align-items:center;justify-content:center;font-family:Unbounded,sans-serif;font-weight:700">{{ st.n }}</span>
+<span style="font-weight:700;font-size:17px">{{ st.title }}</span>
+<span style="font-size:14px;line-height:1.55;color:#4a463e">{{ st.text }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section data-screen-label="Accueil — Pour qui" style="background:#F2EEE4">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px">
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(24px,2.6vw,34px);letter-spacing:-.02em">{{ t.whoTitle }}</h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ t.who }}" as="c" hint-placeholder-count="5">
+<span style="border:1.5px solid #1A1814;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:600">{{ c }}</span>
+</sc-for>
+</div>
+</div>
+</section>
+
+</sc-if>
+
+<sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+<section data-screen-label="Services — En-tête" style="background:#1A1814;color:#FAF8F3">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-direction:column;gap:20px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F5C214">{{ t.nav.services }}</div>
+<h1 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(36px,5vw,64px);letter-spacing:-.03em">{{ t.servTitle }}</h1>
+<p style="margin:0;font-size:18px;line-height:1.6;color:#CFC9BC;max-width:620px">{{ t.servSub }}</p>
+</div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:24px 24px clamp(56px,8vw,100px)">
+<sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px 48px;padding:48px 0;border-bottom:1px solid #E4DFD3">
+<div style="display:flex;flex-direction:column;gap:12px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#8a6a00">{{ s.num }}</span>
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(24px,2.4vw,30px);letter-spacing:-.02em">{{ s.title }}</h2>
+</div>
+<p style="margin:0;font-size:16px;line-height:1.65;color:#4a463e;text-wrap:pretty">{{ s.long }}</p>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ s.items }}" as="it" hint-placeholder-count="4">
+<li style="display:flex;gap:12px;align-items:baseline;font-size:15px;font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:#F5C214;flex:none;transform:translateY(-1px)"></span>{{ it }}</li>
+</sc-for>
+</ul>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<section data-screen-label="À propos" style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-wrap:wrap;gap:56px;align-items:center">
+<div style="flex:1 1 520px;display:flex;flex-direction:column;gap:24px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#6b665c">{{ t.nav.about }}</div>
+<h1 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(36px,5vw,64px);letter-spacing:-.03em">Start Of the Beginning</h1>
+<p style="margin:0;font-size:19px;line-height:1.6;font-weight:600;max-width:600px">{{ t.aboutLead }}</p>
+<p style="margin:0;font-size:16px;line-height:1.65;color:#4a463e;max-width:600px">{{ t.aboutText }}</p>
+</div>
+<div style="flex:1 1 280px;display:flex;justify-content:center">
+<svg viewBox="0 0 100 100" style="width:100%;max-width:340px;height:auto"><circle cx="50" cy="50" r="26" fill="#F5C214"></circle><path d="M82 50H93M72.6 72.6L80.4 80.4M50 82V93M27.4 72.6L19.6 80.4M18 50H7M27.4 27.4L19.6 19.6M50 18V7M72.6 27.4L80.4 19.6" stroke="#F5C214" stroke-width="7" stroke-linecap="round"></path></svg>
+</div>
+</section>
+<section style="background:#1A1814;color:#FAF8F3">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-direction:column;gap:40px">
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.02em">{{ t.valuesTitle }}</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px">
+<sc-for list="{{ t.values }}" as="v" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:12px;border-top:2px solid #F5C214;padding-top:22px">
+<span style="font-family:Unbounded,sans-serif;font-weight:700;font-size:22px">{{ v.title }}</span>
+<span style="font-size:15px;line-height:1.6;color:#CFC9BC">{{ v.text }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:16px">
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.02em">{{ t.teamTitle }}</h2>
+<p style="margin:0;font-size:16px;line-height:1.65;color:#4a463e">{{ t.teamText }}</p>
+<p style="margin:0;font-size:16px;line-height:1.65;color:#4a463e">{{ t.zoneText }}</p>
+</div>
+<div style="aspect-ratio:4/3;border-radius:6px;background:repeating-linear-gradient(45deg,#E9E4D8 0 10px,#F2EEE4 10px 20px);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#6b665c">photo équipe</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isMethod }}" hint-placeholder-val="{{ false }}">
+<section data-screen-label="Méthode" style="max-width:1000px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-direction:column;gap:20px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#6b665c">{{ t.nav.method }}</div>
+<h1 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(36px,5vw,64px);letter-spacing:-.03em">{{ t.methodPageTitle }}</h1>
+<p style="margin:0;font-size:18px;line-height:1.6;color:#4a463e;max-width:620px">{{ t.methodSub }}</p>
+<div style="display:flex;flex-direction:column;margin-top:32px">
+<sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+<div style="display:flex;gap:clamp(20px,4vw,48px);padding:32px 0;border-top:1px solid #E4DFD3;align-items:flex-start">
+<span style="font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(40px,6vw,72px);line-height:.9;color:#F5C214;min-width:1.4em">{{ st.n }}</span>
+<div style="display:flex;flex-direction:column;gap:10px;padding-top:6px">
+<span style="font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(20px,2.2vw,26px)">{{ st.title }}</span>
+<span style="font-size:16px;line-height:1.6;color:#4a463e;max-width:600px">{{ st.text }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+<section data-screen-label="Contact" style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) 24px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#6b665c">{{ t.nav.contact }}</div>
+<h1 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(36px,5vw,64px);letter-spacing:-.03em">{{ t.contactTitle }}</h1>
+<p style="margin:0;font-size:18px;line-height:1.6;color:#4a463e;max-width:620px">{{ t.contactSub }}</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:start">
+<div style="background:#1A1814;color:#FAF8F3;border-radius:6px;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#A8A296">{{ t.phone }}</span><a href="tel:+237676324031" style="font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(22px,2.4vw,28px);color:#F5C214">+237 676 32 40 31</a></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a href="tel:+237676324031" style="flex:1;min-width:140px;text-align:center;background:#F5C214;color:#1A1814;padding:15px;border-radius:999px;font-weight:700">{{ t.call }}</a>
+<a href="https://wa.me/237676324031" target="_blank" style="flex:1;min-width:140px;text-align:center;border:1.5px solid #FAF8F3;color:#FAF8F3;padding:15px;border-radius:999px;font-weight:700;display:flex;gap:8px;align-items:center;justify-content:center;white-space:nowrap"><span style="width:8px;height:8px;border-radius:50%;background:#25D366"></span>WhatsApp</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #3a362e;padding-top:22px"><span style="font-size:13px;color:#A8A296">{{ t.location }}</span><span style="font-size:17px;font-weight:600">Douala, Cameroun</span></div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #3a362e;padding-top:22px"><span style="font-size:13px;color:#A8A296">{{ t.zone }}</span><span style="font-size:17px;font-weight:600">{{ t.zoneShort }}</span></div>
+</div>
+<div style="background:#fff;border:1px solid #E4DFD3;border-radius:6px;padding:clamp(24px,4vw,40px)">
+<sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+<form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:18px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px">
+<label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600">{{ t.f.name }}<input required="" style="border:1px solid #D6D0C2;border-radius:4px;padding:13px 14px;font-size:15px;background:#FAF8F3"></input></label>
+<label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600">{{ t.f.company }}<input style="border:1px solid #D6D0C2;border-radius:4px;padding:13px 14px;font-size:15px;background:#FAF8F3"></input></label>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px">
+<label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600">{{ t.f.phone }}<input type="tel" required="" style="border:1px solid #D6D0C2;border-radius:4px;padding:13px 14px;font-size:15px;background:#FAF8F3"></input></label>
+<label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600">Email<input type="email" style="border:1px solid #D6D0C2;border-radius:4px;padding:13px 14px;font-size:15px;background:#FAF8F3"></input></label>
+</div>
+<label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600">{{ t.f.service }}
+<select style="border:1px solid #D6D0C2;border-radius:4px;padding:13px 14px;font-size:15px;background:#FAF8F3">
+<sc-for list="{{ services }}" as="s" hint-placeholder-count="5"><option>{{ s.title }}</option></sc-for>
+</select></label>
+<label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600">{{ t.f.message }}<textarea rows="5" style="border:1px solid #D6D0C2;border-radius:4px;padding:13px 14px;font-size:15px;background:#FAF8F3;resize:vertical"></textarea></label>
+<button type="submit" style="align-self:flex-start;border:0;background:#1A1814;color:#FAF8F3;padding:16px 28px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer" style-hover="background:#F5C214;color:#1A1814">{{ t.f.send }}</button>
+</form>
+</sc-if>
+<sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;padding:24px 0">
+<span style="width:48px;height:48px;border-radius:50%;background:#F5C214"></span>
+<span style="font-family:Unbounded,sans-serif;font-weight:700;font-size:24px">{{ t.f.thanks }}</span>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="Bandeau contact" style="background:#F5C214">
+<div style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,88px) 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+<h2 style="margin:0;font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,48px);letter-spacing:-.02em">{{ t.ctaTitle }}</h2>
+<p style="margin:0;font-size:17px;line-height:1.55">{{ t.ctaSub }}</p>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a href="tel:+237676324031" style="background:#1A1814;color:#FAF8F3;padding:16px 24px;border-radius:999px;font-weight:700;font-size:15px" style-hover="background:#FAF8F3;color:#1A1814">+237 676 32 40 31</a>
+<a href="https://wa.me/237676324031" target="_blank" style="border:1.5px solid #1A1814;color:#1A1814;padding:16px 24px;border-radius:999px;font-weight:700;font-size:15px" style-hover="background:#1A1814;color:#F5C214">WhatsApp</a>
+</div>
+</div>
+</section>
+</sc-if>
+</main>
+
+<footer style="background:#1A1814;color:#CFC9BC">
+<div style="max-width:1240px;margin:0 auto;padding:56px 24px 32px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px;max-width:340px">
+<span style="display:flex;align-items:center;font-family:Unbounded,sans-serif;font-weight:800;font-size:30px;line-height:1;color:#FAF8F3">S<svg width="36" height="36" viewBox="0 0 100 100"><circle cx="50" cy="50" r="26" fill="#F5C214"></circle><path d="M82 50H93M72.6 72.6L80.4 80.4M50 82V93M27.4 72.6L19.6 80.4M18 50H7M27.4 27.4L19.6 19.6M50 18V7M72.6 27.4L80.4 19.6" stroke="#F5C214" stroke-width="8" stroke-linecap="round"></path></svg>BT<span style="font-size:11px;letter-spacing:.4em;margin-left:12px;font-weight:700">DIGITAL</span></span>
+<span style="font-size:14px;line-height:1.6">{{ t.footerTag }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5"><a href="#" onClick="{{ n.go }}" style="color:#CFC9BC;font-size:14px" style-hover="color:#F5C214">{{ n.label }}</a></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+<a href="tel:+237676324031" style="color:#F5C214;font-weight:700">+237 676 32 40 31</a>
+<a href="https://wa.me/237676324031" target="_blank" style="color:#CFC9BC">WhatsApp</a>
+<span>Douala, Cameroun</span>
+<span>{{ t.zoneShort }}</span>
+</div>
+</div>
+<div style="border-top:1px solid #3a362e;padding-top:20px;font-size:13px;color:#8a8478">© 2026 SOBT Digital — Start Of the Beginning</div>
+</div>
+</footer>
+
+<sc-if value="{{ showFloat }}" hint-placeholder-val="{{ false }}">
+<a href="https://wa.me/237676324031" target="_blank" aria-label="WhatsApp" style="position:fixed;right:18px;bottom:18px;z-index:30;background:#25D366;color:#fff;padding:14px 20px;border-radius:999px;font-weight:700;font-size:15px;box-shadow:0 8px 24px rgba(0,0,0,.18)">WhatsApp</a>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A — Éditorial clair&quot;,&quot;B — Lever de soleil&quot;],&quot;default&quot;:&quot;A — Éditorial clair&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;floatingWhatsApp&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const SERV = {
+  fr: [
+    ["Analyse de données","Tableaux de bord et indicateurs pour décider sur des faits.","Nous transformons vos données brutes en indicateurs clairs : tableaux de bord, rapports automatisés et analyses ponctuelles pour piloter votre activité.",["Tableaux de bord (Power BI, Looker Studio)","Définition des KPI","Rapports automatisés","Analyses ad hoc"]],
+    ["Ingénierie de données","Des données fiables, centralisées et à jour.","Nous concevons les pipelines qui collectent, nettoient et centralisent les données de toutes vos sources, pour une information fiable et disponible.",["Pipelines ETL / ELT","Entrepôts de données","Qualité et gouvernance","Migration de données"]],
+    ["Automatisation IA","Moins de tâches répétitives, plus de temps utile.","Nous automatisons vos processus métier et intégrons l'IA là où elle apporte un gain réel : traitement de documents, assistants, prévisions.",["Automatisation de workflows","Assistants et chatbots","Traitement de documents","Modèles prédictifs"]],
+    ["Intégration ERP","Un système de gestion qui relie tous vos services.","Nous déployons, paramétrons et connectons votre ERP à vos outils existants : comptabilité, stocks, ventes, ressources humaines.",["Choix et déploiement (Odoo, SAP, Sage…)","Paramétrage métier","Connecteurs et API","Formation des équipes"]],
+    ["Développement web","Sites, plateformes et applications sur mesure.","Nous concevons et développons des sites vitrines, plateformes métier et applications web rapides, sécurisées et adaptées au mobile.",["Sites vitrines","Applications web métier","API et back-end","Maintenance et hébergement"]]
+  ],
+  en: [
+    ["Data analysis","Dashboards and KPIs to make fact-based decisions.","We turn raw data into clear indicators: dashboards, automated reports and one-off analyses to steer your business.",["Dashboards (Power BI, Looker Studio)","KPI definition","Automated reporting","Ad hoc analysis"]],
+    ["Data engineering","Reliable, centralised, up-to-date data.","We build the pipelines that collect, clean and centralise data from all your sources, so information is reliable and available.",["ETL / ELT pipelines","Data warehouses","Data quality and governance","Data migration"]],
+    ["AI automation","Fewer repetitive tasks, more useful time.","We automate business processes and apply AI where it brings real gains: document processing, assistants, forecasting.",["Workflow automation","Assistants and chatbots","Document processing","Predictive models"]],
+    ["ERP integration","One management system connecting every department.","We deploy, configure and connect your ERP to your existing tools: accounting, inventory, sales, human resources.",["Selection and rollout (Odoo, SAP, Sage…)","Business configuration","Connectors and APIs","Team training"]],
+    ["Web development","Custom websites, platforms and applications.","We design and build websites, business platforms and web applications that are fast, secure and mobile-ready.",["Company websites","Business web apps","APIs and back-end","Maintenance and hosting"]]
+  ]
+};
+const STEPS = {
+  fr: [["Diagnostic","Nous écoutons vos besoins et analysons vos processus et vos données existantes."],["Conception","Nous proposons une solution, un planning et un budget clairs."],["Réalisation","Nous développons par étapes courtes, avec des démonstrations régulières."],["Déploiement","Mise en production, migration des données et formation de vos équipes."],["Accompagnement","Suivi, maintenance et évolutions selon vos besoins."]],
+  en: [["Discovery","We listen to your needs and review your processes and existing data."],["Design","We propose a solution with a clear schedule and budget."],["Build","We develop in short iterations with regular demos."],["Launch","Go-live, data migration and team training."],["Support","Monitoring, maintenance and improvements as you grow."]]
+};
+const T = {
+  fr: {
+    nav:{home:"Accueil",services:"Services",about:"À propos",method:"Méthode",contact:"Contact"},
+    call:"Appeler", callFull:"Appeler le +237 676 32 40 31", waFull:"Écrire sur WhatsApp",
+    heroEyebrow:"Data · IA · ERP · Web — Douala, Cameroun",
+    heroTitle:"Le point de départ de votre transformation numérique.",
+    heroSub:"SOBT Digital accompagne les entreprises et institutions au Cameroun et en Afrique : analyse de données, ingénierie de données, automatisation par l'IA, intégration ERP et développement web.",
+    expTitle:"Cinq expertises, un seul partenaire.", allServices:"Toutes nos expertises",
+    whyTitle:"Pourquoi SOBT Digital",
+    why:[{title:"Basés à Douala",text:"Une équipe proche de vous, qui connaît le contexte des entreprises camerounaises."},{title:"De la donnée à l'application",text:"Un seul partenaire pour collecter, analyser, automatiser et livrer vos outils."},{title:"Cameroun et Afrique",text:"Nous intervenons sur site et à distance partout sur le continent."}],
+    methodTitle:"Notre méthode", seeMethod:"Découvrir la méthode",
+    whoTitle:"Pour qui", who:["PME","Grandes entreprises","Institutions & ONG","Startups","Secteur public"],
+    servTitle:"Nos expertises", servSub:"Cinq métiers complémentaires pour faire de vos données un levier de croissance.",
+    aboutLead:"SOBT signifie Start Of the Beginning. Comme le soleil qui se lève, chaque projet marque un nouveau départ pour nos clients.",
+    aboutText:"SOBT Digital est une entreprise informatique basée à Douala. Nous aidons les organisations à exploiter leurs données, automatiser leurs processus et se doter d'outils numériques solides.",
+    valuesTitle:"Nos valeurs",
+    values:[{title:"Clarté",text:"Des explications simples et des livrables concrets."},{title:"Engagement",text:"Nous restons à vos côtés après la mise en production."},{title:"Exigence",text:"Des solutions fiables, documentées et sécurisées."}],
+    teamTitle:"L'équipe", teamText:"Data engineers, analystes, développeurs et consultants ERP réunis autour de vos projets.",
+    zoneText:"Nous intervenons au Cameroun et dans toute l'Afrique, sur site ou à distance.",
+    methodPageTitle:"Notre méthode", methodSub:"Une démarche en cinq étapes, transparente du premier échange au suivi.",
+    contactTitle:"Contact & devis", contactSub:"Décrivez votre projet ou appelez-nous directement.",
+    phone:"Téléphone", location:"Localisation", zone:"Zone d'intervention", zoneShort:"Cameroun et Afrique",
+    f:{name:"Nom",company:"Entreprise",phone:"Téléphone",service:"Service concerné",message:"Votre projet",send:"Envoyer la demande",thanks:"Merci, nous vous recontactons très vite."},
+    ctaTitle:"Un projet ? Parlons-en.", ctaSub:"Appelez-nous ou écrivez-nous sur WhatsApp.",
+    footerTag:"Data, IA, ERP et web pour les entreprises et institutions au Cameroun et en Afrique."
+  },
+  en: {
+    nav:{home:"Home",services:"Services",about:"About",method:"Approach",contact:"Contact"},
+    call:"Call", callFull:"Call +237 676 32 40 31", waFull:"Message us on WhatsApp",
+    heroEyebrow:"Data · AI · ERP · Web — Douala, Cameroon",
+    heroTitle:"The starting point of your digital transformation.",
+    heroSub:"SOBT Digital helps companies and institutions across Cameroon and Africa with data analysis, data engineering, AI automation, ERP integration and web development.",
+    expTitle:"Five disciplines, one partner.", allServices:"All services",
+    whyTitle:"Why SOBT Digital",
+    why:[{title:"Based in Douala",text:"A team close to you that understands the context of Cameroonian businesses."},{title:"From data to application",text:"One partner to collect, analyse, automate and deliver your tools."},{title:"Cameroon and Africa",text:"We work on site and remotely across the continent."}],
+    methodTitle:"How we work", seeMethod:"See our approach",
+    whoTitle:"Who we work with", who:["SMEs","Large companies","Institutions & NGOs","Startups","Public sector"],
+    servTitle:"What we do", servSub:"Five complementary disciplines to turn your data into growth.",
+    aboutLead:"SOBT stands for Start Of the Beginning. Like a rising sun, every project marks a new start for our clients.",
+    aboutText:"SOBT Digital is an IT company based in Douala. We help organisations make use of their data, automate their processes and build solid digital tools.",
+    valuesTitle:"Our values",
+    values:[{title:"Clarity",text:"Simple explanations and concrete deliverables."},{title:"Commitment",text:"We stay by your side after go-live."},{title:"Rigour",text:"Reliable, documented and secure solutions."}],
+    teamTitle:"The team", teamText:"Data engineers, analysts, developers and ERP consultants working on your projects.",
+    zoneText:"We work in Cameroon and across Africa, on site or remotely.",
+    methodPageTitle:"Our approach", methodSub:"A five-step process, transparent from first call to ongoing support.",
+    contactTitle:"Contact & quote", contactSub:"Tell us about your project or call us directly.",
+    phone:"Phone", location:"Location", zone:"Coverage", zoneShort:"Cameroon and Africa",
+    f:{name:"Name",company:"Company",phone:"Phone",service:"Service",message:"Your project",send:"Send request",thanks:"Thank you, we will get back to you shortly."},
+    ctaTitle:"Have a project? Let's talk.", ctaSub:"Call us or message us on WhatsApp.",
+    footerTag:"Data, AI, ERP and web for companies and institutions in Cameroon and Africa."
+  }
+};
+class Component extends DCLogic {
+  state = { page: localStorage.getItem('sobt_page') || 'home', lang: localStorage.getItem('sobt_lang') || 'fr', w: window.innerWidth, menu: false, sent: false };
+  componentDidMount() { this.onR = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this.onR); }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  go(page) { return (e) => { e && e.preventDefault(); localStorage.setItem('sobt_page', page); this.setState({ page, menu: false, sent: false }); window.scrollTo(0, 0); }; }
+  setLang(lang) { return () => { localStorage.setItem('sobt_lang', lang); this.setState({ lang }); }; }
+  renderVals() {
+    const { page, lang, w, menu, sent } = this.state;
+    const t = T[lang], mobile = w < 900;
+    const dir = String(this.props.direction ?? 'A').startsWith('B') ? 'B' : 'A';
+    const nav = ['home','services','about','method','contact'].map(k => ({ label: t.nav[k], go: this.go(k), border: page === k ? '#F5C214' : 'transparent', mColor: page === k ? '#8a6a00' : '#1A1814' }));
+    return {
+      t, nav,
+      services: SERV[lang].map((s, i) => ({ num: '0' + (i + 1), title: s[0], short: s[1], long: s[2], items: s[3] })),
+      steps: STEPS[lang].map((s, i) => ({ n: i + 1, title: s[0], text: s[1] })),
+      isDesktop: !mobile, isMobile: mobile, menuVisible: mobile && menu,
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      setFr: this.setLang('fr'), setEn: this.setLang('en'),
+      frBg: lang === 'fr' ? '#1A1814' : 'transparent', frFg: lang === 'fr' ? '#FAF8F3' : '#1A1814',
+      enBg: lang === 'en' ? '#1A1814' : 'transparent', enFg: lang === 'en' ? '#FAF8F3' : '#1A1814',
+      isHome: page === 'home', isServices: page === 'services', isAbout: page === 'about', isMethod: page === 'method', isContact: page === 'contact',
+      showCta: page !== 'contact', dirA: dir === 'A', dirB: dir === 'B',
+      goHome: this.go('home'), goServices: this.go('services'), goMethod: this.go('method'),
+      sent, notSent: !sent, onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      showFloat: (this.props.floatingWhatsApp ?? true) && mobile
+    };
+  }
+}
+</script>
+</body>
+</html>
