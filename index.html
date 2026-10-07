@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" translate="no">
 <head>
   <meta charset="utf-8">
-  <title>Bundled Page</title>
+  <meta name="google" content="notranslate">
+  <title>Sobt digital</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #1A1814; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
@@ -324,6 +325,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     const sunStyle = document.querySelector('head style');
     const sunElapsed = (performance.now() - sunT0) / 1000;
     document.documentElement.replaceWith(doc.documentElement);
+    // The swapped-in root loses the outer attributes; re-apply the no-translate hints.
+    document.documentElement.setAttribute('translate', 'no');
+    document.documentElement.setAttribute('lang', 'fr');
+    if (!document.querySelector('meta[name="google"][content="notranslate"]')) {
+      const nt = document.createElement('meta');
+      nt.name = 'google'; nt.content = 'notranslate';
+      document.head.appendChild(nt);
+    }
     if (sunLoader && sunElapsed < 2.0) {
       // Re-attach the loader to the new document and resume its animations where they were.
       if (sunStyle) document.head.appendChild(sunStyle);
