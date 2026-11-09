@@ -28,6 +28,11 @@ export function pathFor(lang: Lang, page: PageKey): string {
   return slug ? `/${lang}/${slug}` : `/${lang}`;
 }
 
+/** Public path of a service detail page. */
+export function servicePath(lang: Lang, slug: string): string {
+  return `${pathFor(lang, "services")}/${slug}`;
+}
+
 export function pageFromSlug(lang: Lang, slug: string): PageKey | undefined {
   return PAGES.find((p) => SLUGS[lang][p] === slug);
 }
@@ -100,9 +105,20 @@ const T = {
     contactTitle: "Contact & devis", contactSub: "Décrivez votre projet ou appelez-nous directement.",
     phone: "Téléphone", location: "Localisation", city: "Douala, Cameroun", zone: "Zone d'intervention", zoneShort: "Cameroun et Afrique",
     f: { name: "Nom", company: "Entreprise", phone: "Téléphone", email: "Email", service: "Service concerné", message: "Votre projet", send: "Envoyer la demande", thanks: "Merci, nous vous recontactons très vite.", waIntro: "Bonjour SOBT Digital, voici ma demande de devis :" },
-    ctaTitle: "Un projet ? Parlons-en.", ctaSub: "Appelez-nous ou écrivez-nous sur WhatsApp.",
+    ctaTitle: "Un projet ? Parlons-en.", ctaSub: "Diagnostic gratuit et sans engagement : appelez-nous ou écrivez-nous sur WhatsApp.",
     footerTag: "Data, IA, ERP et web pour les entreprises et institutions au Cameroun et en Afrique.",
     menu: "Menu", switchLang: "Read in English",
+    diag: {
+      badge: "Offre de lancement",
+      title: "Diagnostic gratuit de 45 minutes",
+      text: "Un premier échange offert et sans engagement pour comprendre votre activité, faire le point sur vos outils et vos données, et repartir avec des recommandations concrètes.",
+      points: ["Sur place à Douala ou en visioconférence", "État des lieux de vos outils et de vos données", "Priorités et recommandations concrètes", "Première estimation de budget et de délai"],
+      cta: "Réserver mon diagnostic",
+      waText: "Bonjour SOBT Digital, je souhaite réserver un diagnostic gratuit.",
+      option: "Diagnostic gratuit (45 min)",
+      short: "Diagnostic gratuit et sans engagement.",
+    },
+    sp: { problems: "Vous vous reconnaissez ?", deliver: "Ce que nous faisons", tools: "Outils et technologies", cases: "Exemples d'application", casesNote: "Des exemples de ce qu'il est possible de réaliser, selon votre secteur.", faq: "Questions fréquentes", others: "Nos autres expertises", more: "En savoir plus", back: "Toutes nos expertises" },
   },
   en: {
     nav: { home: "Home", services: "Services", about: "About", method: "Approach", contact: "Contact" },
@@ -135,9 +151,20 @@ const T = {
     contactTitle: "Contact & quote", contactSub: "Tell us about your project or call us directly.",
     phone: "Phone", location: "Location", city: "Douala, Cameroon", zone: "Coverage", zoneShort: "Cameroon and Africa",
     f: { name: "Name", company: "Company", phone: "Phone", email: "Email", service: "Service", message: "Your project", send: "Send request", thanks: "Thank you, we will get back to you shortly.", waIntro: "Hello SOBT Digital, here is my quote request:" },
-    ctaTitle: "Have a project? Let's talk.", ctaSub: "Call us or message us on WhatsApp.",
+    ctaTitle: "Have a project? Let's talk.", ctaSub: "Free, no-commitment assessment: call us or message us on WhatsApp.",
     footerTag: "Data, AI, ERP and web for companies and institutions in Cameroon and Africa.",
     menu: "Menu", switchLang: "Lire en français",
+    diag: {
+      badge: "Launch offer",
+      title: "Free 45-minute assessment",
+      text: "A free, no-commitment first conversation to understand your business, review your tools and data, and leave with concrete recommendations.",
+      points: ["On site in Douala or by video call", "Review of your tools and data", "Priorities and concrete recommendations", "First estimate of budget and timeline"],
+      cta: "Book my assessment",
+      waText: "Hello SOBT Digital, I would like to book a free assessment.",
+      option: "Free assessment (45 min)",
+      short: "Free, no-commitment assessment.",
+    },
+    sp: { problems: "Sound familiar?", deliver: "What we do", tools: "Tools and technologies", cases: "Example applications", casesNote: "Examples of what can be built, depending on your sector.", faq: "Frequently asked questions", others: "Our other services", more: "Learn more", back: "All services" },
   },
 };
 

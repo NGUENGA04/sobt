@@ -20,6 +20,9 @@ npm run build   # build de production
 | Méthode   | `/methode`   | `/en/approach` |
 | Contact   | `/contact`   | `/en/contact`  |
 
+Chaque service a sa propre page : `/services/<slug>` (FR) et `/en/services/<slug>` (EN),
+par ex. `/services/integration-erp` et `/en/services/erp-integration`.
+
 Le français est servi sans préfixe (`middleware.ts`) ; `/fr/...` redirige vers l'URL sans préfixe.
 
 ## SEO
@@ -27,13 +30,14 @@ Le français est servi sans préfixe (`middleware.ts`) ; `/fr/...` redirige vers
 - Une vraie URL et un HTML complet par page et par langue (avant : une seule page rendue en JavaScript).
 - `title`, `description`, URL canonique et `hreflang` (fr / en / x-default) propres à chaque page : `lib/seo.ts`.
 - Open Graph et Twitter, avec une image de partage générée par langue (`app/[lang]/opengraph-image.tsx`).
-- Données structurées schema.org (JSON-LD) : `ProfessionalService` (Douala, téléphone, services), `WebSite`, `WebPage`, `BreadcrumbList`, `HowTo` sur la page Méthode.
+- Données structurées schema.org (JSON-LD) : `ProfessionalService` (Douala, téléphone, services, offre de diagnostic gratuit), `WebSite`, `WebPage`, `BreadcrumbList`, `HowTo` sur la page Méthode, `Service` et `FAQPage` sur les pages de service.
 - `sitemap.xml` (avec alternates de langue) et `robots.txt`.
 - Polices auto-hébergées (`app/fonts`, via `next/font/local`), favicon SVG.
 
 ## Modifier le contenu
 
-Tous les textes (FR/EN), les services, les étapes et les balises title/description sont dans `lib/content.ts`.
+- Textes généraux (FR/EN), liste des services, étapes, offre « Diagnostic gratuit » (`diag`) et balises title/description : `lib/content.ts`.
+- Contenu détaillé de chaque page de service (problèmes, livrables, outils, exemples, FAQ) : `lib/services.ts`.
 
 ## Domaine
 

@@ -46,7 +46,7 @@ export function ContactForm({ t, services }: { t: Dict; services: { title: strin
         <label>{t.f.email}<input name="email" type="email" autoComplete="email" /></label>
       </div>
       <label>{t.f.service}
-        <select name="service">{services.map((s) => <option key={s.title}>{s.title}</option>)}</select>
+        <select name="service" defaultValue={t.diag.option}><option>{t.diag.option}</option>{services.map((s) => <option key={s.title}>{s.title}</option>)}</select>
       </label>
       <label>{t.f.message}<textarea name="message" rows={5} /></label>
       <button type="submit" className="btn btn-ink">{t.f.send}</button>

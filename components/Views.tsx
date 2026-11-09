@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Sun } from "./Sun";
 import { ContactForm } from "./ContactForm";
-import { PHONE, PHONE_DISPLAY, WHATSAPP, getContent, pathFor, type Lang } from "@/lib/content";
+import { PHONE, PHONE_DISPLAY, WHATSAPP, getContent, pathFor, servicePath, type Lang } from "@/lib/content";
+import { SERVICE_DETAILS } from "@/lib/services";
 
 type C = ReturnType<typeof getContent> & { lang: Lang };
 
@@ -10,6 +11,24 @@ function CallButtons({ t }: { t: C["t"] }) {
     <div className="row">
       <a href={`tel:${PHONE}`} className="btn btn-sun">{t.callFull}</a>
       <a href={WHATSAPP} target="_blank" rel="noopener" className="btn btn-line"><span className="dot" />{t.waFull}</a>
+    </div>
+  );
+}
+
+export function Diagnostic({ t, compact = false }: { t: C["t"]; compact?: boolean }) {
+  const wa = `${WHATSAPP}?text=${encodeURIComponent(t.diag.waText)}`;
+  return (
+    <div className={compact ? "diag diag-compact" : "diag"}>
+      <div className="stack" style={{ gap: 14 }}>
+        <span className="badge">{t.diag.badge}</span>
+        <h2 className="diag-title">{t.diag.title}</h2>
+        <p className="diag-text">{t.diag.text}</p>
+      </div>
+      <ul className="diag-points">{t.diag.points.map((p) => <li key={p}>{p}</li>)}</ul>
+      <div className="row">
+        <a href={wa} target="_blank" rel="noopener" className="btn btn-ink"><span className="dot" />{t.diag.cta}</a>
+        <a href={`tel:${PHONE}`} className="btn btn-line">{t.callFull}</a>
+      </div>
     </div>
   );
 }
@@ -27,6 +46,10 @@ export function Home({ t, services, steps, lang }: C) {
         <div className="hero-art"><Sun /></div>
       </section>
 
+      <section className="wrap" style={{ paddingBottom: "clamp(24px,4vw,40px)" }} aria-label={t.diag.title}>
+        <Diagnostic t={t} />
+      </section>
+
       <section className="wrap sec stack" style={{ gap: 40 }} aria-labelledby="exp-title">
         <div className="sec-head">
           <h2 id="exp-title" className="h2" style={{ maxWidth: 640 }}>{t.expTitle}</h2>
@@ -34,7 +57,7 @@ export function Home({ t, services, steps, lang }: C) {
         </div>
         <div className="cards">
           {services.map((s) => (
-            <Link key={s.slug} href={`${pathFor(lang, "services")}#${s.slug}`} className="card">
+            <Link key={s.slug} href={servicePath(lang, s.slug)} className="card">
               <span className="num">{s.num}</span>
               <h3>{s.title}</h3>
               <p>{s.short}</p>
@@ -77,7 +100,7 @@ export function Home({ t, services, steps, lang }: C) {
   );
 }
 
-export function Services({ t, services }: C) {
+export function Services({ t, services, lang }: C) {
   return (
     <>
       <section className="dark">
@@ -90,9 +113,10 @@ export function Services({ t, services }: C) {
       <section className="wrap" style={{ paddingTop: 24, paddingBottom: "clamp(56px,8vw,100px)" }}>
         {services.map((s) => (
           <article key={s.slug} id={s.slug} className="service">
-            <div className="stack" style={{ gap: 12 }}>
+            <div className="stack" style={{ gap: 12, alignItems: "flex-start" }}>
               <span className="num">{s.num}</span>
-              <h2>{s.title}</h2>
+              <h2><Link href={servicePath(lang, s.slug)}>{s.title}</Link></h2>
+              <Link href={servicePath(lang, s.slug)} className="link-u" style={{ marginTop: 8 }}>{t.sp.more} →</Link>
             </div>
             <p className="text" style={{ textWrap: "pretty" }}>{s.long}</p>
             <ul>{s.items.map((it) => <li key={it}>{it}</li>)}</ul>
@@ -166,6 +190,7 @@ export function Contact({ t, services }: C) {
         <h1 className="display h-page">{t.contactTitle}</h1>
         <p className="lead">{t.contactSub}</p>
       </div>
+      <Diagnostic t={t} compact />
       <div className="contact-grid">
         <div className="contact-card dark">
           <div className="stack" style={{ gap: 6 }}>
@@ -201,5 +226,97 @@ export function Cta({ t }: C) {
         </div>
       </div>
     </section>
+  );
+}
+
+export function ServiceDetailView({ t, services, lang, index }: C & { index: number }) {
+  const s = services[index];
+  const d = SERVICE_DETAILS[lang][index];
+  return (
+    <>
+      <section className="dark">
+        <div className="wrap sec stack" style={{ gap: 20 }}>
+          <nav aria-label="Breadcrumb" className="crumbs">
+            <Link href={pathFor(lang, "home")}>{t.nav.home}</Link><span aria-hidden="true">/</span>
+            <Link href={pathFor(lang, "services")}>{t.nav.services}</Link><span aria-hidden="true">/</span>
+            <span aria-current="page">{s.title}</span>
+          </nav>
+          <p className="eyebrow" style={{ margin: 0 }}>{s.num} — {t.nav.services}</p>
+          <h1 className="display h-page">{s.title}</h1>
+          <p className="lead" style={{ maxWidth: 720 }}>{d.intro}</p>
+          <div className="row" style={{ marginTop: 8 }}>
+            <a href={`${WHATSAPP}?text=${encodeURIComponent(t.diag.waText)}`} target="_blank" rel="noopener" className="btn btn-sun">{t.diag.cta}</a>
+            <a href={`tel:${PHONE}`} className="btn btn-line">{t.callFull}</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="wrap sec sd-grid">
+        <div className="stack" style={{ gap: 20 }}>
+          <h2 className="h2">{t.sp.problems}</h2>
+          <ul className="checks">{d.problems.map((p) => <li key={p}>{p}</li>)}</ul>
+        </div>
+        <div className="stack" style={{ gap: 20 }}>
+          <h2 className="h2">{t.sp.deliver}</h2>
+          <div className="deliver">
+            {d.deliverables.map((x) => (
+              <div key={x.title}><h3>{x.title}</h3><p>{x.text}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sand">
+        <div className="wrap who">
+          <h2>{t.sp.tools}</h2>
+          <ul className="chips">{d.tools.map((x) => <li key={x}>{x}</li>)}</ul>
+        </div>
+      </section>
+
+      <section className="wrap sec stack" style={{ gap: 32 }}>
+        <div className="stack" style={{ gap: 10 }}>
+          <h2 className="h2">{t.sp.cases}</h2>
+          <p className="text">{t.sp.casesNote}</p>
+        </div>
+        <div className="why why-light">
+          {d.useCases.map((u) => (
+            <div key={u.title}><span className="bullet" aria-hidden="true" /><h3>{u.title}</h3><p>{u.text}</p></div>
+          ))}
+        </div>
+      </section>
+
+      <section className="wrap" style={{ paddingBottom: "clamp(56px,8vw,100px)" }}>
+        <Diagnostic t={t} />
+      </section>
+
+      <section className="wrap stack" style={{ gap: 24, paddingBottom: "clamp(56px,8vw,100px)", maxWidth: 1000 }}>
+        <h2 className="h2">{t.sp.faq}</h2>
+        <div className="faq">
+          {d.faq.map((f) => (
+            <details key={f.q}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="wrap stack" style={{ gap: 24, paddingBottom: "clamp(56px,8vw,100px)" }}>
+        <div className="sec-head">
+          <h2 className="h2">{t.sp.others}</h2>
+          <Link href={pathFor(lang, "services")} className="link-u">{t.sp.back}</Link>
+        </div>
+        <div className="cards">
+          {services.filter((_, i) => i !== index).map((o) => (
+            <Link key={o.slug} href={servicePath(lang, o.slug)} className="card" style={{ minHeight: 200 }}>
+              <span className="num">{o.num}</span>
+              <h3>{o.title}</h3>
+              <p>{o.short}</p>
+              <span className="arrow" aria-hidden="true">→</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

@@ -5,9 +5,8 @@ import { useState } from "react";
 import { Sun } from "./Sun";
 import { PAGES, PHONE, WHATSAPP, pathFor, type Dict, type Lang, type PageKey } from "@/lib/content";
 
-export function Header({ lang, page, t }: { lang: Lang; page: PageKey; t: Dict }) {
+export function Header({ lang, page, t, altHref }: { lang: Lang; page: PageKey; t: Dict; altHref: string }) {
   const [open, setOpen] = useState(false);
-  const other: Lang = lang === "fr" ? "en" : "fr";
   const links = PAGES.map((p) => (
     <Link key={p} href={pathFor(lang, p)} aria-current={p === page ? "page" : undefined} onClick={() => setOpen(false)}>
       {t.nav[p]}
@@ -28,7 +27,7 @@ export function Header({ lang, page, t }: { lang: Lang; page: PageKey; t: Dict }
               l === lang ? (
                 <span key={l} aria-current="true" lang={l}>{l.toUpperCase()}</span>
               ) : (
-                <Link key={l} href={pathFor(other, page)} hrefLang={l} lang={l} title={t.switchLang}>{l.toUpperCase()}</Link>
+                <Link key={l} href={altHref} hrefLang={l} lang={l} title={t.switchLang}>{l.toUpperCase()}</Link>
               )
             )}
           </div>
