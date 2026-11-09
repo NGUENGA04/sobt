@@ -29,7 +29,7 @@ Le français est servi sans préfixe (`middleware.ts`) ; `/fr/...` redirige vers
 - Open Graph et Twitter, avec une image de partage générée par langue (`app/[lang]/opengraph-image.tsx`).
 - Données structurées schema.org (JSON-LD) : `ProfessionalService` (Douala, téléphone, services), `WebSite`, `WebPage`, `BreadcrumbList`, `HowTo` sur la page Méthode.
 - `sitemap.xml` (avec alternates de langue) et `robots.txt`.
-- Polices auto-hébergées via `next/font`, favicon SVG.
+- Polices auto-hébergées (`app/fonts`, via `next/font/local`), favicon SVG.
 
 ## Modifier le contenu
 
