@@ -52,7 +52,6 @@ export default async function Page({ params }: { params: Params }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <Intro />
-      <a href="#contenu" className="skip">{lang === "fr" ? "Aller au contenu" : "Skip to content"}</a>
       <div className="shell">
         <Header lang={lang} page={page} t={c.t} altHref={altHref} />
         <main id="contenu" style={{ flex: 1 }}>

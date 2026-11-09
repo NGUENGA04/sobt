@@ -24,8 +24,6 @@ main, section > div { min-width: 0; }
 h1, h2, h3 { overflow-wrap: break-word; hyphens: auto; }
 input, select, textarea, button { font-family: inherit; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-.skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 999px; }
-.skip:focus { top: 12px; color: var(--paper); }
 
 .shell { min-height: 100vh; display: flex; flex-direction: column; }
 .wrap { max-width: 1240px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
