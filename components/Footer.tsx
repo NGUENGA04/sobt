@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Sun } from "./Sun";
-import { PAGES, PHONE, PHONE_DISPLAY, WHATSAPP, pathFor, type Dict, type Lang } from "@/lib/content";
+import { NAV_PAGES, PHONE, PHONE_DISPLAY, WHATSAPP, pathFor, type Dict, type Lang } from "@/lib/content";
 
 export function Footer({ lang, t }: { lang: Lang; t: Dict }) {
   return (
@@ -13,7 +13,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Dict }) {
           </div>
           <nav aria-label="Footer">
             <ul>
-              {PAGES.map((p) => (
+              {NAV_PAGES.map((p) => (
                 <li key={p}><Link href={pathFor(lang, p)}>{t.nav[p]}</Link></li>
               ))}
             </ul>
@@ -25,7 +25,7 @@ export function Footer({ lang, t }: { lang: Lang; t: Dict }) {
             <span>{t.zoneShort}</span>
           </address>
         </div>
-        <div className="copy">© {new Date().getFullYear()} SOBT Digital — Start Of the Beginning</div>
+        <div className="copy"><span>© {new Date().getFullYear()} SOBT Digital — Start Of the Beginning</span><Link href={pathFor(lang, "legal")}>{t.nav.legal}</Link></div>
       </div>
     </footer>
   );

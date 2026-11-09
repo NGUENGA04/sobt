@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LANGS, SITE_URL, isLang } from "@/lib/content";
 import "../globals.css";
 
@@ -39,7 +41,11 @@ export default async function RootLayout({ children, params }: { children: React
       <head>
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

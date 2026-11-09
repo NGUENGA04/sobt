@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Intro } from "@/components/Intro";
+import { Legal } from "@/components/Legal";
 import { About, Contact, Cta, Home, Method, ServiceDetailView, Services } from "@/components/Views";
 import { LANGS, PAGES, SLUGS, WHATSAPP, getContent, isLang, pageFromSlug, pathFor, servicePath, type Lang, type PageKey } from "@/lib/content";
 import { buildJsonLd, buildMetadata, buildServiceJsonLd, buildServiceMetadata } from "@/lib/seo";
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   return r.service === undefined ? buildMetadata(r.lang, r.page) : buildServiceMetadata(r.lang, r.service);
 }
 
-const VIEWS = { home: Home, services: Services, about: About, method: Method, contact: Contact };
+const VIEWS = { home: Home, services: Services, about: About, method: Method, contact: Contact, legal: Legal };
 
 export default async function Page({ params }: { params: Params }) {
   const { lang, page, service } = await resolve(params);
@@ -56,7 +57,7 @@ export default async function Page({ params }: { params: Params }) {
         <Header lang={lang} page={page} t={c.t} altHref={altHref} />
         <main id="contenu" style={{ flex: 1 }}>
           {service === undefined ? <View {...c} /> : <ServiceDetailView {...c} index={service} />}
-          {page !== "contact" && <Cta {...c} />}
+          {page !== "contact" && page !== "legal" && <Cta {...c} />}
         </main>
         <Footer lang={lang} t={c.t} />
         <a href={WHATSAPP} target="_blank" rel="noopener" className="float-wa">WhatsApp</a>

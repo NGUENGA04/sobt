@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Sun } from "./Sun";
-import { PAGES, PHONE, WHATSAPP, pathFor, type Dict, type Lang, type PageKey } from "@/lib/content";
+import { NAV_PAGES, PHONE, WHATSAPP, pathFor, type Dict, type Lang, type PageKey } from "@/lib/content";
 
 export function Header({ lang, page, t, altHref }: { lang: Lang; page: PageKey; t: Dict; altHref: string }) {
   const [open, setOpen] = useState(false);
-  const links = PAGES.map((p) => (
+  const links = NAV_PAGES.map((p) => (
     <Link key={p} href={pathFor(lang, p)} aria-current={p === page ? "page" : undefined} onClick={() => setOpen(false)}>
       {t.nav[p]}
     </Link>

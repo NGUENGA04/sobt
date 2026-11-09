@@ -2,8 +2,10 @@ export const LANGS = ["fr", "en"] as const;
 export type Lang = (typeof LANGS)[number];
 export const DEFAULT_LANG: Lang = "fr";
 
-export const PAGES = ["home", "services", "about", "method", "contact"] as const;
+export const PAGES = ["home", "services", "about", "method", "contact", "legal"] as const;
 export type PageKey = (typeof PAGES)[number];
+/** Pages shown in the header and footer navigation. */
+export const NAV_PAGES = ["home", "services", "about", "method", "contact"] as const satisfies readonly PageKey[];
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://sobt-digital.vercel.app").replace(/\/$/, "");
 
@@ -13,8 +15,8 @@ export const WHATSAPP = "https://wa.me/237676324031";
 
 /** URL segment of each page, per language. */
 export const SLUGS: Record<Lang, Record<PageKey, string>> = {
-  fr: { home: "", services: "services", about: "a-propos", method: "methode", contact: "contact" },
-  en: { home: "", services: "services", about: "about", method: "approach", contact: "contact" },
+  fr: { home: "", services: "services", about: "a-propos", method: "methode", contact: "contact", legal: "mentions-legales" },
+  en: { home: "", services: "services", about: "about", method: "approach", contact: "contact", legal: "legal-notice" },
 };
 
 export function isLang(v: string): v is Lang {
@@ -75,7 +77,7 @@ const STEPS: Record<Lang, { title: string; text: string }[]> = {
 
 const T = {
   fr: {
-    nav: { home: "Accueil", services: "Services", about: "À propos", method: "Méthode", contact: "Contact" },
+    nav: { home: "Accueil", services: "Services", about: "À propos", method: "Méthode", contact: "Contact", legal: "Mentions légales" },
     call: "Appeler", callFull: "Appeler le +237 676 32 40 31", waFull: "Écrire sur WhatsApp",
     heroEyebrow: "Data · IA · ERP · Web — Douala, Cameroun",
     heroTitle: "Le point de départ de votre transformation numérique.",
@@ -121,7 +123,7 @@ const T = {
     sp: { problems: "Vous vous reconnaissez ?", deliver: "Ce que nous faisons", tools: "Outils et technologies", cases: "Exemples d'application", casesNote: "Des exemples de ce qu'il est possible de réaliser, selon votre secteur.", faq: "Questions fréquentes", others: "Nos autres expertises", more: "En savoir plus", back: "Toutes nos expertises" },
   },
   en: {
-    nav: { home: "Home", services: "Services", about: "About", method: "Approach", contact: "Contact" },
+    nav: { home: "Home", services: "Services", about: "About", method: "Approach", contact: "Contact", legal: "Legal notice" },
     call: "Call", callFull: "Call +237 676 32 40 31", waFull: "Message us on WhatsApp",
     heroEyebrow: "Data · AI · ERP · Web — Douala, Cameroon",
     heroTitle: "The starting point of your digital transformation.",
@@ -178,6 +180,7 @@ const META: Record<Lang, Record<PageKey, { title: string; description: string }>
     about: { title: "À propos de SOBT Digital — Start Of the Beginning", description: "SOBT Digital est une entreprise informatique basée à Douala qui aide les organisations du Cameroun et d'Afrique à exploiter leurs données et à se digitaliser." },
     method: { title: "Notre méthode en cinq étapes", description: "Diagnostic, conception, réalisation, déploiement et accompagnement : une démarche transparente pour vos projets data, IA, ERP et web." },
     contact: { title: "Contact et devis gratuit — Douala, Cameroun", description: "Demandez un devis à SOBT Digital : appelez le +237 676 32 40 31 ou écrivez-nous sur WhatsApp. Interventions au Cameroun et en Afrique." },
+    legal: { title: "Mentions légales et confidentialité", description: "Mentions légales du site SOBT Digital : éditeur, hébergeur, propriété intellectuelle, données personnelles et mesure d'audience." },
   },
   en: {
     home: { title: "SOBT Digital | Data, AI, ERP & web development in Douala, Cameroon", description: "IT company in Douala: data analysis and engineering, AI automation, ERP integration (Odoo, SAP, Sage) and web development for businesses in Cameroon and across Africa." },
@@ -185,6 +188,7 @@ const META: Record<Lang, Record<PageKey, { title: string; description: string }>
     about: { title: "About SOBT Digital — Start Of the Beginning", description: "SOBT Digital is an IT company based in Douala helping organisations in Cameroon and Africa make use of their data and go digital." },
     method: { title: "Our five-step approach", description: "Discovery, design, build, launch and support: a transparent process for your data, AI, ERP and web projects." },
     contact: { title: "Contact & free quote — Douala, Cameroon", description: "Request a quote from SOBT Digital: call +237 676 32 40 31 or message us on WhatsApp. We work across Cameroon and Africa." },
+    legal: { title: "Legal notice and privacy", description: "Legal notice for the SOBT Digital website: publisher, host, intellectual property, personal data and audience measurement." },
   },
 };
 

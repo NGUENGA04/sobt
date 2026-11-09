@@ -19,6 +19,7 @@ npm run build   # build de production
 | À propos  | `/a-propos`  | `/en/about`    |
 | Méthode   | `/methode`   | `/en/approach` |
 | Contact   | `/contact`   | `/en/contact`  |
+| Mentions légales | `/mentions-legales` | `/en/legal-notice` |
 
 Chaque service a sa propre page : `/services/<slug>` (FR) et `/en/services/<slug>` (EN),
 par ex. `/services/integration-erp` et `/en/services/erp-integration`.
@@ -38,6 +39,14 @@ Le français est servi sans préfixe (`middleware.ts`) ; `/fr/...` redirige vers
 
 - Textes généraux (FR/EN), liste des services, étapes, offre « Diagnostic gratuit » (`diag`) et balises title/description : `lib/content.ts`.
 - Contenu détaillé de chaque page de service (problèmes, livrables, outils, exemples, FAQ) : `lib/services.ts`.
+
+- Informations légales (forme juridique, RCCM, NIU, adresse, e-mail, directeur de la publication) : `lib/company.ts`. Un champ vide n'est pas affiché.
+- Membres de l'équipe : `lib/team.ts` (photos dans `public/team/`).
+
+## Statistiques
+
+Vercel Web Analytics et Speed Insights sont intégrés au site (`app/[lang]/layout.tsx`).
+Il faut les activer dans le tableau de bord Vercel : projet `sobt-digital` → onglets **Analytics** et **Speed Insights** → **Enable**.
 
 ## Domaine
 
