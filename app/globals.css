@@ -128,8 +128,6 @@ input, select, textarea, button { font-family: inherit; }
 .values > div { display: flex; flex-direction: column; gap: 12px; border-top: 2px solid var(--sun); padding-top: 22px; }
 .values h3 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: 22px; }
 .values p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--soft); }
-.team { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 40px; align-items: center; }
-.photo { aspect-ratio: 4 / 3; border-radius: 6px; background: repeating-linear-gradient(45deg, #e9e4d8 0 10px, var(--sand) 10px 20px); display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 13px; color: var(--muted-2); }
 
 /* Method page */
 .method-list { display: flex; flex-direction: column; margin: 32px 0 0; padding: 0; list-style: none; }
@@ -240,3 +238,15 @@ html.play-intro .intro { display: flex; }
 .faq summary::after { content: "+"; font-family: var(--f-display); color: var(--gold); font-size: 22px; line-height: 1; }
 .faq details[open] summary::after { content: "–"; }
 .faq p { margin: 12px 0 0; font-size: 16px; line-height: 1.65; color: var(--muted); max-width: 760px; }
+
+/* Team */
+.team-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 20px; }
+.member { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; }
+.avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid var(--sun); }
+.avatar-initials { display: flex; align-items: center; justify-content: center; background: var(--sun); font-family: var(--f-display); font-weight: 700; font-size: 28px; color: var(--ink); }
+.member h3 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: 19px; }
+.member-role { font-family: var(--f-mono); font-size: 13px; color: var(--gold); }
+.member p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); flex: 1; }
+.member-skills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.member-skills li { border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 600; }
+.member-link { font-weight: 700; font-size: 14px; border-bottom: 2px solid var(--sun); align-self: flex-start; padding-bottom: 2px; }

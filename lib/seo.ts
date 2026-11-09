@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LANGS, PHONE, SITE_URL, WHATSAPP, getContent, pathFor, servicePath, type Lang, type PageKey } from "./content";
 import { SERVICE_DETAILS } from "./services";
+import { TEAM } from "./team";
 
 export function buildMetadata(lang: Lang, page: PageKey): Metadata {
   const { meta } = getContent(lang);
@@ -49,6 +50,15 @@ export function buildJsonLd(lang: Lang, page: PageKey) {
     contactPoint: { "@type": "ContactPoint", telephone: PHONE, contactType: "customer service", availableLanguage: ["French", "English"] },
     sameAs: [WHATSAPP],
     knowsAbout: services.map((s) => s.title),
+    ...(TEAM.length > 0 && {
+      employee: TEAM.map((m) => ({
+        "@type": "Person",
+        name: m.name,
+        jobTitle: m.role[lang],
+        ...(m.photo && { image: `${SITE_URL}/team/${m.photo}` }),
+        ...(m.linkedin && { sameAs: [m.linkedin] }),
+      })),
+    }),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: t.servTitle,

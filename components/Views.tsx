@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Sun } from "./Sun";
 import { ContactForm } from "./ContactForm";
 import { PHONE, PHONE_DISPLAY, WHATSAPP, getContent, pathFor, servicePath, type Lang } from "@/lib/content";
 import { SERVICE_DETAILS } from "@/lib/services";
+import { TEAM } from "@/lib/team";
 
 type C = ReturnType<typeof getContent> & { lang: Lang };
 
@@ -127,7 +129,7 @@ export function Services({ t, services, lang }: C) {
   );
 }
 
-export function About({ t }: C) {
+export function About({ t, lang }: C) {
   return (
     <>
       <section className="wrap sec" style={{ display: "flex", flexWrap: "wrap", gap: 56, alignItems: "center" }}>
@@ -149,13 +151,36 @@ export function About({ t }: C) {
           </div>
         </div>
       </section>
-      <section className="wrap sec team">
-        <div className="stack" style={{ gap: 16 }}>
-          <h2 className="h2">{t.teamTitle}</h2>
+      <section className="wrap sec stack" style={{ gap: 40 }} aria-labelledby="team-title">
+        <div className="stack" style={{ gap: 16, maxWidth: 760 }}>
+          <h2 id="team-title" className="h2">{t.teamTitle}</h2>
           <p className="text">{t.teamText}</p>
           <p className="text">{t.zoneText}</p>
         </div>
-        <div className="photo" aria-hidden="true">{t.teamPhoto}</div>
+        {TEAM.length > 0 && (
+          <ul className="team-grid">
+            {TEAM.map((m) => (
+              <li key={m.name} className="member">
+                {m.photo ? (
+                  <Image src={`/team/${m.photo}`} alt={m.name} width={160} height={160} className="avatar" />
+                ) : (
+                  <span className="avatar avatar-initials" aria-hidden="true">
+                    {m.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
+                  </span>
+                )}
+                <div className="stack" style={{ gap: 4 }}>
+                  <h3>{m.name}</h3>
+                  <span className="member-role">{m.role[lang]}</span>
+                </div>
+                <p>{m.bio[lang]}</p>
+                {m.skills && m.skills.length > 0 && <ul className="member-skills">{m.skills.map((k) => <li key={k}>{k}</li>)}</ul>}
+                {m.linkedin && (
+                  <a href={m.linkedin} target="_blank" rel="noopener" className="member-link" aria-label={`${t.teamLinkedin} ${m.name}`}>LinkedIn →</a>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </>
   );
